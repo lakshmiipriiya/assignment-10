@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<a href="/" class="back">← Back to all movies</a>
+
+<article class="details">
+  <img class="details-poster" src="<%= movie.posterUrl %>" alt="<%= movie.movieName %> poster" onerror="this.src='/images/no-poster.svg'">
+  <div class="details-info">
+    <h1><%= movie.movieName %> <span>(<%= movie.releaseYear %>)</span></h1>
+    <ul class="facts">
+      <li><strong>Director:</strong> <%= movie.director %></li>
+      <li><strong>Genre:</strong> <%= movie.genre %></li>
+      <li><strong>Language:</strong> <%= movie.language %></li>
+      <li><strong>Duration:</strong> <%= movie.duration %> min</li>
+      <li><strong>Rating:</strong> ★ <%= movie.rating %>/10</li>
+      <li><strong>Movie ID:</strong> <%= movie.movieId %></li>
+    </ul>
+    <p class="description"><%= movie.description %></p>
+  </div>
+</article>
+
+<%- include('partials/footer') %>

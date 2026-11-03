@@ -1,0 +1,40 @@
+<%- include('partials/header') %>
+
+<section class="toolbar">
+  <form method="GET" action="/" class="filters">
+    <input type="search" name="search" placeholder="Search by movie name..." value="<%= search %>" aria-label="Search movies">
+    <select name="genre" aria-label="Filter by genre">
+      <option value="">All genres</option>
+      <% genres.forEach(g => { %>
+        <option value="<%= g %>" <%= g === genre ? 'selected' : '' %>><%= g %></option>
+      <% }) %>
+    </select>
+    <button type="submit">Apply</button>
+    <% if (search || genre) { %><a href="/" class="clear">Clear</a><% } %>
+  </form>
+  <p class="result-count"><%= total %> movie<%= total === 1 ? '' : 's' %> found</p>
+</section>
+
+<% if (movies.length === 0) { %>
+  <div class="empty-state">
+    <h2>No movies found</h2>
+    <p>Try a different name or genre.</p>
+  </div>
+<% } else { %>
+  <div class="movie-grid">
+    <% movies.forEach(m => { %>
+      <article class="movie-card">
+        <a href="/movies/<%= m.movieId %>">
+          <img src="<%= m.posterUrl %>" alt="<%= m.movieName %> poster" loading="lazy" onerror="this.src='/images/no-poster.svg'">
+        </a>
+        <div class="card-body">
+          <h3><a href="/movies/<%= m.movieId %>"><%= m.movieName %></a></h3>
+          <p class="meta"><%= m.releaseYear %> · <%= m.genre %> · <%= m.language %></p>
+          <p class="rating">★ <%= m.rating %>/10</p>
+        </div>
+      </article>
+    <% }) %>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>
